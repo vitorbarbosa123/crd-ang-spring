@@ -3,4 +3,80 @@
     </app-header>
     <app-sidebar [clicked]="clicked">
     </app-sidebar>
+
+    <section class="container">
+        <div class="header">
+            <p-text size="x-large" class="title">Novo Cadastro</p-text>
+            <div class="switch-wrapper">
+                <p-text size="medium">Alterar:</p-text>
+                <p-switch [checked]="checked" (switchChange)="onSwitchChange($event)">{{ registerType }}</p-switch>
+            </div>
+        </div>
+        <form class="form">
+            <p-accordion
+                [heading]="'Dados Pessoais'"
+                [tag]="'h2'"
+                [size]="'medium'"
+                [open]="personalData"
+                (accordionChange)="onAccordion1Change($event)">
+                <div class="inputs-wrapper" id="personalData">
+                    <p-text-field-wrapper class="input-large " [label]="name" [hideLabel]="false">
+                        <input [type]="'text'" [name]="'name'"  required/>
+                    </p-text-field-wrapper>
+                    <p-text-field-wrapper class="input-medium" [label]="cnpjOrCpf" [hideLabel]="false">
+                        <input [type]="'text'" [name]="'cnpjOrCpf'"  required/>
+                    </p-text-field-wrapper>
+                    <p-text-field-wrapper *ngIf="checked" class="input-medium " [label]="'RG:'" [hideLabel]="false">
+                        <input [type]="'text'" [name]="'rg'"  required/>
+                    </p-text-field-wrapper>
+                    <p-text-field-wrapper *ngIf="checked" class="input-medium " [label]="'Data de nascimento:'" [hideLabel]="false">
+                        <input [type]="'date'" [name]="'birthdate'"  required/>
+                    </p-text-field-wrapper>
+                </div>
+            </p-accordion>
+            <p-accordion
+                [heading]="'Localidade'"
+                [tag]="'h2'"
+                [size]="'medium'"
+                [open]="location"
+                (accordionChange)="onAccordion2Change($event)">
+                <div class="inputs-wrapper">
+                    <p-text-field-wrapper class="input-medium " [label]="'CEP:'" [hideLabel]="false">
+                        <input [type]="'text'" [name]="'cep'"  required/>
+                    </p-text-field-wrapper>
+                    <p-text-field-wrapper class="input-medium" [label]="'Rua:'" [hideLabel]="false">
+                        <input [type]="'text'" [name]="'street'"  required/>
+                    </p-text-field-wrapper>
+                    <p-text-field-wrapper class="input-medium " [label]="'Bairro:'" [hideLabel]="false">
+                        <input [type]="'text'" [name]="'neighborhood'"  required/>
+                    </p-text-field-wrapper>
+                    <p-text-field-wrapper class="input-min " [label]="'Numero:'" [hideLabel]="false">
+                        <input [type]="'text'" [name]="'houseNumber'"  required/>
+                    </p-text-field-wrapper>
+                    <p-text-field-wrapper class="input-large" [label]="'Complemento:'" [hideLabel]="false" >
+                        <input [type]="'text'" [name]="'addionalInfo'"  [maxLength]="24"  required/>
+                    </p-text-field-wrapper>
+                </div>
+            </p-accordion>
+            <p-accordion
+                [heading]="'Trabalhista'"
+                [tag]="'h1'"
+                [size]="'medium'"
+                [open]="work"
+                (accordionChange)="onAccordion3Change($event)">
+                <div class="inputs-wrapper">
+                    <p-text-field-wrapper class="input-medium " [label]="'Empresa:'" [hideLabel]="false">
+                        <input [type]="'text'" [name]="'complete-name'"  required/>
+                    </p-text-field-wrapper>
+                    <p-text-field-wrapper class="input-large" [label]="'Tipo de Vinculo:'" [hideLabel]="false">
+                        <input [type]="'text'" [name]="'complete-name'"  required/>
+                    </p-text-field-wrapper>
+                </div>
+            </p-accordion>
+            <p-button-group class="buttons">
+                <p-button [variant]="'secondary'" [icon]="'delete'">Cancelar</p-button>
+                <p-button [variant]="'primary'" [icon]="'add'" [type]="'submit'" [disabled]="true">Cadastrar</p-button>
+              </p-button-group>
+        </form>
+    </section>
  </main>
