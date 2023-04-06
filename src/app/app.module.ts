@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { PorscheDesignSystemModule } from '@porsche-design-system/components-angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { PagesModule } from './pages/pages.module';
 
-import { PorscheDesignSystemModule } from '@porsche-design-system/components-angular';
 @NgModule({
   declarations: [
     AppComponent
@@ -12,9 +12,10 @@ import { PorscheDesignSystemModule } from '@porsche-design-system/components-ang
   imports: [
     BrowserModule,
     AppRoutingModule,
+    PagesModule,
     PorscheDesignSystemModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

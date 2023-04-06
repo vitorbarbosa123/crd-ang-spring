@@ -1,0 +1,30 @@
+@import '@porsche-design-system/utilities/scss';
+
+.sidebar {
+    height: 100vh; 
+    margin-top: 6vh;
+    width: 0;  
+    position: fixed;  
+    z-index: 1;  
+    top: 0;
+    left: 0;
+    background-color: $p-color-neutral-contrast-medium; 
+    overflow-x: hidden;  
+    transition: 0.5s; 
+}
+
+.sidebar-content {
+    display: flex;
+    flex-direction: column;
+    height: 18vh;
+    width: 100%;
+    align-items: center;
+    justify-content: space-around;
+
+    .sidebar-button {
+        display: flex;
+        align-items: center;
+        width: 80%;
+        height: 4vh;
+    }
+}

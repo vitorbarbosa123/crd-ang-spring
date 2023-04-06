@@ -1,0 +1,10 @@
+@import '@porsche-design-system/utilities/scss';
+
+header {
+    width: 100vw;
+    height: 6vh;
+    background-color: $p-color-background-shading;
+    display: flex;
+    align-items: center;
+    padding-left: 4vw;
+}

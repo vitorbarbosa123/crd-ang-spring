@@ -1,0 +1,36 @@
+<section class="sidebar" *ngIf="clicked" [ngStyle]="clicked ? {'width': '250px'} : {'width': '0'}">
+    <div class="sidebar-content">
+        <div class="sidebar-button" (click)="goToHome()">
+            <p-icon 
+            [ngStyle]="{'margin-right':'20px'}"
+            [theme]="'dark'"
+            [size]="'medium'"
+            [name]="'home'" 
+            [aria]="{ 'aria-label': 'Menu Lines icon' }">
+        </p-icon>   
+        <p-text size="medium" theme="dark">Home</p-text>
+        </div>
+        <div class="sidebar-button" (click)="goToRegister()">
+            <p-icon 
+            [ngStyle]="{'margin-right':'20px'}"
+            [theme]="'dark'"
+            [size]="'medium'"
+            [name]="'document'" 
+            [aria]="{ 'aria-label': 'Menu Lines icon' }">
+        </p-icon>   
+        <p-text size="medium" theme="dark">Cadastrar</p-text>
+        </div>
+        <div class="sidebar-button" (click)="goToList()">
+            <p-icon 
+            [ngStyle]="{'margin-right':'20px'}"
+            [theme]="'dark'"
+            [size]="'medium'"
+            [name]="'work'" 
+            [aria]="{ 'aria-label': 'Menu Lines icon' }">
+            </p-icon>   
+            <p-text size="medium" theme="dark">Listagem</p-text>
+        </div>
+    </div>
+
+</section>
+
