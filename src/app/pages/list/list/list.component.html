@@ -3,4 +3,24 @@
     </app-header>
     <app-sidebar [clicked]="clicked">
     </app-sidebar>
+
+    <section class="container">
+        <div class="header">
+            <p-text size="x-large" class="title">Listar cadastros</p-text>
+        </div>
+
+        <div class="search-wrapper">
+            <p-select-wrapper [label]="'Selecione um dado'" [hideLabel]="false" class="search-select">
+                <select [name]="'some-name'">
+                  <option [value]="'a'">CPF</option>
+                  <option [value]="'b'">CNPJ</option>
+                </select>
+            </p-select-wrapper>
+            <p-text-field-wrapper [label]="'Digite o dado:'" class="input-search">
+                <input [type]="'text'"  [name]="'some-name'" [value]="'000.000.000-00'" required />
+            </p-text-field-wrapper>
+            <p-button [variant]="'primary'" [icon]="'search'" class="button-search">Pesquisar</p-button>
+        </div>
+
+    </section>
  </main>
