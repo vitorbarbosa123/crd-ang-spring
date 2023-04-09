@@ -9,10 +9,12 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import crud.api.Empresa.DadosAtualizacaoEmpresa;
 import crud.api.Empresa.DadosEmpresa;
 import crud.api.Empresa.DadosListagemEmpresa;
 import crud.api.Empresa.Empresa;
@@ -37,5 +39,12 @@ public class EmpresaController {
         return repository
                 .findAll(paginacao)
                 .map(DadosListagemEmpresa::new);
+    }
+
+    @PutMapping
+    @Transactional
+    public void atualizarEmpresa(@RequestBody @Valid DadosAtualizacaoEmpresa empresa) {
+       Empresa Empresa = repository.getReferenceById(empresa.id());
+       Empresa.atualizarInformacoes(empresa);
     }
 }
