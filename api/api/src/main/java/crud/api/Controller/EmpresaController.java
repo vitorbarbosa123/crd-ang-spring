@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import crud.api.Empresa.DadosEmpresa;
 import crud.api.Empresa.Empresa;
 import crud.api.Empresa.EmpresaRepository;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("empresa")
@@ -20,7 +21,7 @@ public class EmpresaController {
     
     @PostMapping
     @Transactional
-    public void cadastrarEmpresa(@RequestBody DadosEmpresa empresa) {
+    public void cadastrarEmpresa(@RequestBody @Valid DadosEmpresa empresa) {
        repository.save(new Empresa(empresa));
     }
 }
