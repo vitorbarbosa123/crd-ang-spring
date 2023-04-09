@@ -1,10 +1,10 @@
-package crd.spring;
+package crud.api;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CrdSpringAngApplicationTests {
+class ApiApplicationTests {
 
 	@Test
 	void contextLoads() {

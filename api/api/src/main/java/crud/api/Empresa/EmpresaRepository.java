@@ -1,4 +1,4 @@
-package crd.spring.empresa;
+package crud.api.Empresa;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

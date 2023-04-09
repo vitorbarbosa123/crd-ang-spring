@@ -1,13 +1,15 @@
-package crd.spring.controller;
+package crud.api.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import crd.spring.empresa.Empresa;
-import crd.spring.empresa.EmpresaRepository;
+import crud.api.Empresa.DadosEmpresa;
+import crud.api.Empresa.Empresa;
+import crud.api.Empresa.EmpresaRepository;
 
 @RestController
 @RequestMapping("empresa")
@@ -17,7 +19,8 @@ public class EmpresaController {
     private EmpresaRepository repository;
     
     @PostMapping
-    public void cadastrar(@RequestBody Empresa empresa) {
-        repository.save(new Empresa(empresa));
+    @Transactional
+    public void cadastrarEmpresa(@RequestBody DadosEmpresa empresa) {
+       repository.save(new Empresa(empresa));
     }
 }
