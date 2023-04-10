@@ -21,6 +21,7 @@
     "@porsche-design-system/components-angular": "^3.0.0-alpha.5",
     "@porsche-design-system/utilities": "^5.4.1",
     "jwt-decode": "^3.1.2",
+    "remask": "^1.0.1",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
