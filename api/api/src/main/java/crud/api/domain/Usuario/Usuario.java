@@ -28,7 +28,7 @@ public class Usuario implements UserDetails{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String login;
-    private String senha;
+    private String password;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -36,7 +36,7 @@ public class Usuario implements UserDetails{
     }
     @Override
     public String getPassword() {
-       return senha;
+       return password;
     }
     @Override
     public String getUsername() {

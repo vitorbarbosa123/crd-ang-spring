@@ -30,7 +30,7 @@ public class AutenticacaoController {
     @PostMapping
     public ResponseEntity login(@Valid @RequestBody DadosAutenticacao dados) {
         try {
-            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha());
+            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(dados.login(), dados.password());
             Authentication authentication = manager.authenticate(authenticationToken);
     
             String tokenJWT = tokenService.generateToken((Usuario) authentication.getPrincipal());
