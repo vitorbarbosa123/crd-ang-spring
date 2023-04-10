@@ -6,6 +6,8 @@ import { ListComponent } from './list/list/list.component';
 import { RegisterComponent } from './register/register/register.component';
 import { PagesRoutingModule } from './pages-routing.module';
 import { SharedModule } from '../shared/shared.module';
+import { LoginComponent } from './login/login.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -13,13 +15,15 @@ import { SharedModule } from '../shared/shared.module';
   declarations: [
     HomeComponent,
     ListComponent,
-    RegisterComponent
+    RegisterComponent,
+    LoginComponent
   ],
   imports: [
     CommonModule,
     PagesRoutingModule,
     PorscheDesignSystemModule,
-    SharedModule
+    SharedModule,
+    FormsModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   exports: [
