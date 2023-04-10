@@ -1,4 +1,4 @@
-package crud.api.infra;
+package crud.api.infra.ErrorHandler;
 
 import java.util.List;
 
