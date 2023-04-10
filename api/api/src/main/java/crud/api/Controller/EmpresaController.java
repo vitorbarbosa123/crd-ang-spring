@@ -1,11 +1,13 @@
 package crud.api.Controller;
 
-import java.util.List;
+import java.net.URI;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,8 +17,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import crud.api.Empresa.DadosAtualizacaoEmpresa;
+import crud.api.Empresa.DadosDetalhamentoEmpresa;
 import crud.api.Empresa.DadosEmpresa;
 import crud.api.Empresa.DadosListagemEmpresa;
 import crud.api.Empresa.Empresa;
@@ -32,28 +37,32 @@ public class EmpresaController {
     
     @PostMapping
     @Transactional
-    public void cadastrarEmpresa(@RequestBody @Valid DadosEmpresa empresa) {
-       repository.save(new Empresa(empresa));
+    public ResponseEntity cadastrarEmpresa(@RequestBody @Valid DadosEmpresa empresa, UriComponentsBuilder uriBuilder) {
+       Empresa Empresa = new Empresa(empresa);
+       repository.save(Empresa);
+       URI uri = uriBuilder.path("/empresa/{id}").buildAndExpand(Empresa.getId()).toUri();
+       return ResponseEntity.created(uri).body(new DadosDetalhamentoEmpresa(Empresa));
     }
 
     @GetMapping
-    public Page<DadosListagemEmpresa> listarEmpresa(@PageableDefault(size=10, sort={"nome"}) Pageable paginacao) {
-        return repository
-                .findAllByAtivoTrue(paginacao)
-                .map(DadosListagemEmpresa::new);
+    public ResponseEntity <Page<DadosListagemEmpresa>> listarEmpresa(@PageableDefault(size=10, sort={"nome"}) Pageable paginacao) {
+        Page page = repository.findAllByAtivoTrue(paginacao).map(DadosListagemEmpresa::new);
+        return ResponseEntity.ok(page);
     }
 
     @PutMapping
     @Transactional
-    public void atualizarEmpresa(@RequestBody @Valid DadosAtualizacaoEmpresa empresa) {
+    public ResponseEntity atualizarEmpresa(@RequestBody @Valid DadosAtualizacaoEmpresa empresa) {
        Empresa Empresa = repository.getReferenceById(empresa.id());
        Empresa.atualizarInformacoes(empresa);
+       return ResponseEntity.ok(new DadosDetalhamentoEmpresa(Empresa));
     }
 
     @DeleteMapping("/{id}")
     @Transactional
-    public void excluirEmpresa(@PathVariable Long id) {
+    public ResponseEntity excluirEmpresa(@PathVariable Long id) {
         Empresa Empresa = repository.getReferenceById(id);
         Empresa.excluir();
+        return ResponseEntity.noContent().build();
     }
 }
