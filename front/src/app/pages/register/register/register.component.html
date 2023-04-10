@@ -1,4 +1,4 @@
-<main>
+<main class="screen">
     <app-header (click)="openSidebar()">
     </app-header>
     <app-sidebar [clicked]="clicked">
@@ -6,30 +6,30 @@
 
     <section class="container">
         <div class="header">
-            <p-text size="x-large" class="title">Novo Cadastro</p-text>
+            <p-text size="large" class="title">Novo Cadastro</p-text>
             <div class="switch-wrapper">
-                <p-text size="medium">Alterar:</p-text>
-                <p-switch [checked]="checked" (switchChange)="onSwitchChange($event)">{{ registerType }}</p-switch>
+                <p-text size="small">Alterar:</p-text>
+                <p-switch [checked]="checked" (switchChange)="onSwitchChange($event)"><p-text size="small">{{ checked ? 'Fornecedor' : 'Empresa' }}</p-text></p-switch>
             </div>
         </div>
         <form class="form">
             <p-accordion
                 [heading]="'Dados Pessoais'"
                 [tag]="'h2'"
-                [size]="'medium'"
+                [size]="'small'"
                 [open]="personalData"
                 (accordionChange)="onAccordion1Change($event)">
                 <div class="inputs-wrapper" id="personalData">
-                    <p-text-field-wrapper class="input-large " [label]="name" [hideLabel]="false">
+                    <p-text-field-wrapper class="input-large " [label]="checked ? 'Nome Completo:' : 'Nome Fantasia'" [hideLabel]="false">
                         <input [type]="'text'" [name]="'name'"  required/>
                     </p-text-field-wrapper>
-                    <p-text-field-wrapper class="input-medium" [label]="cnpjOrCpf" [hideLabel]="false">
-                        <input [type]="'text'" [name]="'cnpjOrCpf'"  required/>
+                    <p-text-field-wrapper class="input-medium" [label]="checked ? 'CPF/CNPJ:' : 'CNPJ'" [hideLabel]="false">
+                        <input [type]="'text'" [name]="'cnpjOrCpf'" (change)="setMask()" [(ngModel)]="inputValue" required/>
                     </p-text-field-wrapper>
-                    <p-text-field-wrapper *ngIf="checked" class="input-medium " [label]="'RG:'" [hideLabel]="false">
+                    <p-text-field-wrapper *ngIf="checked && isCpf" class="input-medium " [label]="'RG:'" [hideLabel]="false">
                         <input [type]="'text'" [name]="'rg'"  required/>
                     </p-text-field-wrapper>
-                    <p-text-field-wrapper *ngIf="checked" class="input-medium " [label]="'Data de nascimento:'" [hideLabel]="false">
+                    <p-text-field-wrapper *ngIf="checked && isCpf" class="input-medium " [label]="'Data de nascimento:'" [hideLabel]="false">
                         <input [type]="'date'" [name]="'birthdate'"  required/>
                     </p-text-field-wrapper>
                 </div>
@@ -37,7 +37,7 @@
             <p-accordion
                 [heading]="'Localidade'"
                 [tag]="'h2'"
-                [size]="'medium'"
+                [size]="'small'"
                 [open]="location"
                 (accordionChange)="onAccordion2Change($event)">
                 <div class="inputs-wrapper">
@@ -61,7 +61,7 @@
             <p-accordion
                 [heading]="'Trabalhista'"
                 [tag]="'h1'"
-                [size]="'medium'"
+                [size]="'small'"
                 [open]="work"
                 (accordionChange)="onAccordion3Change($event)">
                 <div class="inputs-wrapper">
