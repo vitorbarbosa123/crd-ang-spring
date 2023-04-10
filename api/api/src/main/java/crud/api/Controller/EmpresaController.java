@@ -65,4 +65,10 @@ public class EmpresaController {
         Empresa.excluir();
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity detalharEmpresa(@PathVariable Long id) {
+        Empresa Empresa = repository.getReferenceById(id);
+        return ResponseEntity.ok(new DadosDetalhamentoEmpresa(Empresa));
+    }
 }
