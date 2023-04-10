@@ -1,4 +1,4 @@
-package crud.api.Endereco;
+package crud.api.domain.Endereco;
 
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;

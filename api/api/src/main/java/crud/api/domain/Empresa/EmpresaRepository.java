@@ -1,4 +1,4 @@
-package crud.api.Empresa;
+package crud.api.domain.Empresa;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

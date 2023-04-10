@@ -1,6 +1,6 @@
-package crud.api.Empresa;
+package crud.api.domain.Empresa;
 
-import crud.api.Endereco.Endereco;
+import crud.api.domain.Endereco.Endereco;
 import jakarta.validation.Valid;
 
 public record DadosDetalhamentoEmpresa(Long id, String nome, String cnpj, Endereco endereco) {

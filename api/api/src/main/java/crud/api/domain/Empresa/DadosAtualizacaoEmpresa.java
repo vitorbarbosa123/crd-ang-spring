@@ -1,6 +1,6 @@
-package crud.api.Empresa;
+package crud.api.domain.Empresa;
 
-import crud.api.Endereco.DadosEndereco;
+import crud.api.domain.Endereco.DadosEndereco;
 import jakarta.validation.constraints.NotNull;
 
 public record DadosAtualizacaoEmpresa(

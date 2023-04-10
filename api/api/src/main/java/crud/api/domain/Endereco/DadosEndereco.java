@@ -1,4 +1,4 @@
-package crud.api.Endereco;
+package crud.api.domain.Endereco;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;

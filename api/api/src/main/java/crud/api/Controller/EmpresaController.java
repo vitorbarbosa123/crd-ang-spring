@@ -17,15 +17,14 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import crud.api.Empresa.DadosAtualizacaoEmpresa;
-import crud.api.Empresa.DadosDetalhamentoEmpresa;
-import crud.api.Empresa.DadosEmpresa;
-import crud.api.Empresa.DadosListagemEmpresa;
-import crud.api.Empresa.Empresa;
-import crud.api.Empresa.EmpresaRepository;
+import crud.api.domain.Empresa.DadosAtualizacaoEmpresa;
+import crud.api.domain.Empresa.DadosDetalhamentoEmpresa;
+import crud.api.domain.Empresa.DadosEmpresa;
+import crud.api.domain.Empresa.DadosListagemEmpresa;
+import crud.api.domain.Empresa.Empresa;
+import crud.api.domain.Empresa.EmpresaRepository;
 import jakarta.validation.Valid;
 
 @RestController

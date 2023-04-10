@@ -1,4 +1,4 @@
-package crud.api.Empresa;
+package crud.api.domain.Empresa;
 
 public record DadosListagemEmpresa(
     Long id,

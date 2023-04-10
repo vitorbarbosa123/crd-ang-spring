@@ -1,6 +1,6 @@
-package crud.api.Empresa;
+package crud.api.domain.Empresa;
 
-import crud.api.Endereco.Endereco;
+import crud.api.domain.Endereco.Endereco;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
