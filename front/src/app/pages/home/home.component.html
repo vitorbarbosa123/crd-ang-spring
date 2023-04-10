@@ -1,11 +1,15 @@
-<main>
+<main class="screen">
    <app-header (click)="openSidebar()">
    </app-header>
    <app-sidebar [clicked]="clicked">
    </app-sidebar>
 
-   <div class="title">
-      <p-text size="x-large">Bem-vindo usuário</p-text>
-      <p-button variant="primary" (click)="openSidebar()">Abrir menu</p-button>
-   </div>
+   <section class="container">
+      <div class="title">
+         <p-text size="large">Bem-vindo usuário</p-text>
+         <p-button variant="primary" (click)="openSidebar()">Abrir menu</p-button>
+      </div>
+
+   </section>
+
 </main>
