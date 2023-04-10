@@ -7,7 +7,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,7 +39,7 @@ public class EmpresaController {
     @GetMapping
     public Page<DadosListagemEmpresa> listarEmpresa(@PageableDefault(size=10, sort={"nome"}) Pageable paginacao) {
         return repository
-                .findAll(paginacao)
+                .findAllByAtivoTrue(paginacao)
                 .map(DadosListagemEmpresa::new);
     }
 
@@ -46,5 +48,12 @@ public class EmpresaController {
     public void atualizarEmpresa(@RequestBody @Valid DadosAtualizacaoEmpresa empresa) {
        Empresa Empresa = repository.getReferenceById(empresa.id());
        Empresa.atualizarInformacoes(empresa);
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public void excluirEmpresa(@PathVariable Long id) {
+        Empresa Empresa = repository.getReferenceById(id);
+        Empresa.excluir();
     }
 }
