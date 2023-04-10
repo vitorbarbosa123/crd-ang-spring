@@ -1,0 +1,12 @@
+<main>
+    <form #loginForm="ngForm">
+        <p-text-field-wrapper label="Login" hide-label="false">
+            <input type="email" (ngSubmit)="login()" [(ngModel)]="user" name="user" #userInput="ngModel" required/>
+        </p-text-field-wrapper>
+        <p-text-field-wrapper label="Senha">
+            <input type="password" [(ngModel)]="password" name="password" #passwordInput="ngModel"  required/>
+        </p-text-field-wrapper>
+        <p-button variant="primary" (click)="login()" [type]="'submit'">Entrar</p-button>
+
+    </form>
+</main>
