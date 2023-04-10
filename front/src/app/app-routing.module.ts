@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './pages/home/home/home.component';
-import { LoginComponent } from './pages/login/login.component';
 import { LoginGuard } from './core/guards/login/login.guard';
 import { AutenticateGuard } from './core/guards/autenticate/autenticate.guard';
 
@@ -11,19 +9,20 @@ const routes: Routes = [
     pathMatch: "full",
     redirectTo: "login"
   },
-  { 
-    path: '', 
-    redirectTo: "/home",
-    pathMatch: "full"
-  },
   {
-    path: "login",
-    component: LoginComponent,
+    path: '',
+    pathMatch: "full",
+    redirectTo: "/home",
+  },
+  
+  {
+    path: 'login',
+    loadChildren: () => import('./pages/login/login.module').then((m) => m.LoginModule),
     canLoad: [LoginGuard]
   },
   {
-    path: "home",
-    component: HomeComponent,
+    path: 'home',
+    loadChildren: () => import('./pages/home/home.module').then((m) => m.HomeModule),
     canLoad: [AutenticateGuard]
   },
 ];
