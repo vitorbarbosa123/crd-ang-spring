@@ -12,7 +12,7 @@
                 <p-switch [checked]="checked" (switchChange)="onSwitchChange($event)"><p-text size="small">{{ checked ? 'Fornecedor' : 'Empresa' }}</p-text></p-switch>
             </div>
         </div>
-        <form (ngSubmit)="cadastraEmpresa()"  [formGroup]="formularioEmpresa" class="form" method="POST">
+        <form (ngSubmit)="checked ? cadastraFornecedor() : cadastraEmpresa()"  [formGroup]="checked ? formularioFornecedor : formularioEmpresa" class="form" method="POST">
             <p-accordion
                 [heading]="'Dados Pessoais'"
                 [tag]="'h2'"
@@ -24,7 +24,10 @@
                         <input [type]="'text'" [name]="'name'"  formControlName="nome" required/>
                     </p-text-field-wrapper>
                     <p-text-field-wrapper class="input-medium" [label]="checked ? 'CPF/CNPJ:' : 'CNPJ'" [hideLabel]="false">
-                        <input [type]="'text'" [name]="'cnpjOrCpf'" formControlName="cnpj" (change)="setMask()" [(ngModel)]="inputValue" required/>
+                        <input [type]="'text'" [name]="'cnpjOrCpf'" formControlName='cgc' (change)="setMask()" [(ngModel)]="inputValue" required/>
+                    </p-text-field-wrapper>
+                    <p-text-field-wrapper *ngIf="checked" class="input-large " [label]="'Email'"  [hideLabel]="false">
+                        <input [type]="'text'" [name]="'email'"  formControlName="email" required/>
                     </p-text-field-wrapper>
                     <p-text-field-wrapper *ngIf="checked && isCpf" class="input-medium " [label]="'RG:'" [hideLabel]="false">
                         <input [type]="'text'" [name]="'rg'"  formControlName="rg" required/>
@@ -32,8 +35,7 @@
                     <p-text-field-wrapper *ngIf="checked && isCpf" class="input-medium "  [label]="'Data de nascimento:'" [hideLabel]="false">
                         <input [type]="'date'" [name]="'birthdate'"  formControlName="birthdate" [(ngModel)]="birthdate" (change)="verifyAge()" required/>
                     </p-text-field-wrapper>
-
-                    {{birthdate }}
+                    
                 </div>
             </p-accordion>
             <p-accordion
@@ -75,14 +77,25 @@
                 [open]="work"
                 (accordionChange)="onAccordion3Change($event)">
                 <div class="inputs-wrapper">
-                    <p-text-field-wrapper class="input-medium " [label]="'Fornecedor:'" [hideLabel]="false">
-                        <input [type]="'text'" [name]="'fornecedor'"  required/>
-                    </p-text-field-wrapper>
+                    <p-select-wrapper [filter]="true" [label]="'Selecione um fornecedor:'">
+                        <select [name]="'fornecedores'" (change)="fornecedorSelecionado(fornecedor)" *ngFor="let fornecedor of fornecedores">
+                          <option></option>
+                          <option [value]="fornecedor.id">{{ fornecedor.nome }}</option>
+                        </select>
+                    </p-select-wrapper>
+
+                    <div class="selected-wrapper" *ngIf="fornecedoresSelecionados.length == 1">
+                        <p-text size="small">Fornecedores selecionados:</p-text>
+                        <div *ngFor="let fornecedor of fornecedoresSelecionados" class="fornecedor-box">
+                            <p-text size="small">{{ fornecedor.nome }}</p-text>
+                            <p-icon [name]="'delete'" [color]="'brand'" [aria]="{ 'aria-label': 'Highway icon' }" (click)="deletarFornecedorSelecionado(fornecedor.id)"></p-icon>
+                        </div>
+                    </div>
                 </div>
             </p-accordion>
             <p-button-group class="buttons">
                 <p-button [variant]="'secondary'" [icon]="'delete'">Cancelar</p-button>
-                <p-button [variant]="'primary'" [icon]="'add'" [type]="'submit'" [disabled]="!formularioEmpresa.valid">Cadastrar</p-button>
+                <p-button [variant]="'primary'" [icon]="'add'" [type]="'submit'" [disabled]="checked ? !formularioFornecedor.valid : !formularioEmpresa.valid">Cadastrar</p-button>
               </p-button-group>
         </form>
     </section>

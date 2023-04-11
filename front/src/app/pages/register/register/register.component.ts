@@ -8,6 +8,7 @@ import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { EmpresasService } from 'src/app/core/services/empresas/empresas.service';
 import { IEmpresa } from 'src/app/core/interfaces/IEmpresa';
 import { IFornecedor } from 'src/app/core/interfaces/IFornecedor';
+import { FornecedoresService } from 'src/app/core/services/fornecedores/fornecedores.service';
 
 @Component({
   selector: 'app-register',
@@ -29,6 +30,9 @@ export class RegisterComponent implements OnInit {
   isChild: boolean = false;
   blockAge: boolean = false;
   formularioEmpresa: FormGroup;
+  formularioFornecedor: FormGroup;
+  fornecedores: IFornecedor[] = [];
+  fornecedoresSelecionados: IFornecedor[] = [];
 
   endereco: IEndereco = {
     logradouro: '',
@@ -41,11 +45,29 @@ export class RegisterComponent implements OnInit {
   constructor(
     private cepService: CepService,
     private formBuilder: FormBuilder,
-    private empresasService: EmpresasService
+    private empresasService: EmpresasService,
+    private fornecedorService: FornecedoresService
   ) { 
     this.formularioEmpresa = this.formBuilder.group({
       nome: new FormControl(''),
-      cnpj: new FormControl(''),
+      cgc: new FormControl(''),
+      endereco: this.formBuilder.group({
+          logradouro: new FormControl(''),
+          bairro: new FormControl(''),
+          cep: new FormControl(''),
+          cidade: new FormControl(''),
+          uf: new FormControl(''),
+          complemento: new FormControl(''),
+          numero: new FormControl(''),
+      })
+    })
+
+    this.formularioFornecedor = this.formBuilder.group({
+      nome: new FormControl(''),
+      cgc: new FormControl(''),
+      email: new FormControl(''),
+      rg: new FormControl(''),
+      birthdate: new FormControl(''),
       endereco: this.formBuilder.group({
           logradouro: new FormControl(''),
           bairro: new FormControl(''),
@@ -58,7 +80,9 @@ export class RegisterComponent implements OnInit {
     })
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getFornecedores();
+  }
 
   openSidebar() {
     this.clicked = !this.clicked;
@@ -118,11 +142,43 @@ export class RegisterComponent implements OnInit {
   }
 
   cadastraEmpresa() {
-    console.warn(this.formularioEmpresa.value)
     this.empresasService.cadastraEmpresa(this.formularioEmpresa.value).subscribe(
       res => {
         console.log(res)
       }
+      )
+  }
+
+  cadastraFornecedor() {
+    this.fornecedorService.cadastraFornecedor(this.formularioFornecedor.value).subscribe(
+      res => {
+        console.log(res)
+      }
     )
+  }
+
+  getFornecedores() {
+    try {
+      this.fornecedorService.getFornecedores().subscribe(
+        res => {
+          this.fornecedores = res.content;
+        }
+      )
+    } catch {
+      console.warn("Não existem fornecedores")
+    }
+  }
+
+  fornecedorSelecionado(fornecedor: IFornecedor) {
+    this.fornecedoresSelecionados.push(fornecedor)
+    console.log(this.fornecedoresSelecionados.length)
+
+  }
+
+  deletarFornecedorSelecionado(id: string) {
+    this.fornecedoresSelecionados = this.fornecedoresSelecionados.filter((fornecedor) => fornecedor.id !== id)
+    console.log(this.fornecedoresSelecionados.length)
+
+
   }
 }

@@ -1,6 +1,7 @@
 export interface IFornecedor{
+    id: string,
     nome: string,
-    cnpjOrCpf: string,
+    cgc: string,
     logradouro: string,
     bairro: string,
     cep: string,

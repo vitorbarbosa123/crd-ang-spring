@@ -52,3 +52,17 @@
     display: flex;
     justify-content: flex-end;
 }
+
+.selected-wrapper {
+    margin-left:  3vw;
+}
+
+.fornecedor-box {
+    width: 16vw;
+    height: 4vh;
+    border-radius: 6px;
+    background-color: lightgray;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
