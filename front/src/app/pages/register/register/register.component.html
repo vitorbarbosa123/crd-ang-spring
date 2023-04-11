@@ -41,20 +41,27 @@
                 [open]="location"
                 (accordionChange)="onAccordion2Change($event)">
                 <div class="inputs-wrapper">
-                    <p-text-field-wrapper class="input-medium " [label]="'CEP:'" [hideLabel]="false">
-                        <input [type]="'text'" [name]="'cep'"  required/>
+                    <p-text-field-wrapper class="input-medium " [label]="'CEP:'"  [hideLabel]="false">
+                        <input [type]="'text'" [name]="'cep'"  (change)="getCep()" [(ngModel)]="cep" required/>
                     </p-text-field-wrapper>
+                   
                     <p-text-field-wrapper class="input-medium" [label]="'Rua:'" [hideLabel]="false">
-                        <input [type]="'text'" [name]="'street'"  required/>
+                        <input [type]="'text'" [name]="'street'"  [(ngModel)]="endereco.logradouro" required/>
                     </p-text-field-wrapper>
                     <p-text-field-wrapper class="input-medium " [label]="'Bairro:'" [hideLabel]="false">
-                        <input [type]="'text'" [name]="'neighborhood'"  required/>
+                        <input [type]="'text'" [name]="'neighborhood'"   [(ngModel)]="endereco.bairro" required/>
                     </p-text-field-wrapper>
-                    <p-text-field-wrapper class="input-min " [label]="'Numero:'" [hideLabel]="false">
-                        <input [type]="'text'" [name]="'houseNumber'"  required/>
+                    <p-text-field-wrapper class="input-medium " [label]="'Cidade:'" [hideLabel]="false">
+                        <input [type]="'text'" [name]="'city'"   [(ngModel)]="endereco.localidade" required/>
+                    </p-text-field-wrapper>
+                    <p-text-field-wrapper class="input-medium " [label]="'UF:'" [hideLabel]="false">
+                        <input [type]="'text'" [name]="'uf'"   [(ngModel)]="endereco.uf" required/>
+                    </p-text-field-wrapper>
+                    <p-text-field-wrapper class="input-small " [label]="'Numero:'" [hideLabel]="false">
+                        <input [type]="'text'" [name]="'number'"  required/>
                     </p-text-field-wrapper>
                     <p-text-field-wrapper class="input-large" [label]="'Complemento:'" [hideLabel]="false" >
-                        <input [type]="'text'" [name]="'addionalInfo'"  [maxLength]="24"  required/>
+                        <input [type]="'text'" [name]="'complement'"  [maxLength]="24"  required/>
                     </p-text-field-wrapper>
                 </div>
             </p-accordion>

@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import type { SwitchChangeEvent } from '@porsche-design-system/components-angular';
 import type { AccordionChangeEvent } from '@porsche-design-system/components-angular';
 import { mask, unMask } from 'remask';
-
+import { CepService } from 'src/app/core/services/cep/cep.service';
+import { IEndereco } from 'src/app/core/interfaces/IEndereco';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -17,8 +18,20 @@ export class RegisterComponent implements OnInit {
   work: boolean = true;
   inputValue: any;
   isCpf: boolean = false;
+  cep: string = '';
+  cep$: any;
 
-  constructor() { }
+  endereco: IEndereco = {
+    logradouro: '',
+    bairro: '',
+    cep: '',
+    localidade: '',
+    uf: ''
+  }
+
+  constructor(
+    private cepService: CepService
+  ) { }
 
   ngOnInit(): void {
   }
@@ -50,5 +63,13 @@ export class RegisterComponent implements OnInit {
     } else {
       this.isCpf = false;
     }
+  }
+
+  async getCep() {
+    if(this.cep != null && this.cep !== '') {
+      this.cep$ = this.cepService.getCep(this.cep)
+      await this.cep$.subscribe((value: IEndereco) => 
+        this.endereco = value
+    )}
   }
 }
