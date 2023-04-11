@@ -12,7 +12,7 @@
                 <p-switch [checked]="checked" (switchChange)="onSwitchChange($event)"><p-text size="small">{{ checked ? 'Fornecedor' : 'Empresa' }}</p-text></p-switch>
             </div>
         </div>
-        <form class="form">
+        <form (ngSubmit)="cadastraEmpresa()"  [formGroup]="formularioEmpresa" class="form" method="POST">
             <p-accordion
                 [heading]="'Dados Pessoais'"
                 [tag]="'h2'"
@@ -21,17 +21,19 @@
                 (accordionChange)="onAccordion1Change($event)">
                 <div class="inputs-wrapper" id="personalData">
                     <p-text-field-wrapper class="input-large " [label]="checked ? 'Nome Completo:' : 'Nome Fantasia'" [hideLabel]="false">
-                        <input [type]="'text'" [name]="'name'"  required/>
+                        <input [type]="'text'" [name]="'name'"  formControlName="nome" required/>
                     </p-text-field-wrapper>
                     <p-text-field-wrapper class="input-medium" [label]="checked ? 'CPF/CNPJ:' : 'CNPJ'" [hideLabel]="false">
-                        <input [type]="'text'" [name]="'cnpjOrCpf'" (change)="setMask()" [(ngModel)]="inputValue" required/>
+                        <input [type]="'text'" [name]="'cnpjOrCpf'" formControlName="cnpj" (change)="setMask()" [(ngModel)]="inputValue" required/>
                     </p-text-field-wrapper>
                     <p-text-field-wrapper *ngIf="checked && isCpf" class="input-medium " [label]="'RG:'" [hideLabel]="false">
-                        <input [type]="'text'" [name]="'rg'"  required/>
+                        <input [type]="'text'" [name]="'rg'"  formControlName="rg" required/>
                     </p-text-field-wrapper>
-                    <p-text-field-wrapper *ngIf="checked && isCpf" class="input-medium " [label]="'Data de nascimento:'" [hideLabel]="false">
-                        <input [type]="'date'" [name]="'birthdate'"  required/>
+                    <p-text-field-wrapper *ngIf="checked && isCpf" class="input-medium "  [label]="'Data de nascimento:'" [hideLabel]="false">
+                        <input [type]="'date'" [name]="'birthdate'"  formControlName="birthdate" [(ngModel)]="birthdate" (change)="verifyAge()" required/>
                     </p-text-field-wrapper>
+
+                    {{birthdate }}
                 </div>
             </p-accordion>
             <p-accordion
@@ -40,49 +42,47 @@
                 [size]="'small'"
                 [open]="location"
                 (accordionChange)="onAccordion2Change($event)">
-                <div class="inputs-wrapper">
+                <div class="inputs-wrapper" formGroupName="endereco">
                     <p-text-field-wrapper class="input-medium " [label]="'CEP:'"  [hideLabel]="false">
-                        <input [type]="'text'" [name]="'cep'"  (change)="getCep()" [(ngModel)]="cep" required/>
+                        <input [type]="'text'" [name]="'cep'"  formControlName="cep" (change)="getCep()" [(ngModel)]="cep" required/>
                     </p-text-field-wrapper>
-                   
                     <p-text-field-wrapper class="input-medium" [label]="'Rua:'" [hideLabel]="false">
-                        <input [type]="'text'" [name]="'street'"  [(ngModel)]="endereco.logradouro" required/>
+                        <input [type]="'text'" [name]="'logradouro'"  formControlName="logradouro" [(ngModel)]="endereco.logradouro" required/>
                     </p-text-field-wrapper>
                     <p-text-field-wrapper class="input-medium " [label]="'Bairro:'" [hideLabel]="false">
-                        <input [type]="'text'" [name]="'neighborhood'"   [(ngModel)]="endereco.bairro" required/>
+                        <input [type]="'text'" [name]="'bairro'"  formControlName="bairro" [(ngModel)]="endereco.bairro" required/>
                     </p-text-field-wrapper>
                     <p-text-field-wrapper class="input-medium " [label]="'Cidade:'" [hideLabel]="false">
-                        <input [type]="'text'" [name]="'city'"   [(ngModel)]="endereco.localidade" required/>
+                        <input [type]="'text'" [name]="'cidade'"   formControlName="cidade" [(ngModel)]="endereco.localidade" required/>
                     </p-text-field-wrapper>
                     <p-text-field-wrapper class="input-medium " [label]="'UF:'" [hideLabel]="false">
-                        <input [type]="'text'" [name]="'uf'"   [(ngModel)]="endereco.uf" required/>
+                        <input [type]="'text'" [name]="'uf'"   formControlName="uf" [(ngModel)]="endereco.uf" required/>
                     </p-text-field-wrapper>
                     <p-text-field-wrapper class="input-small " [label]="'Numero:'" [hideLabel]="false">
-                        <input [type]="'text'" [name]="'number'"  required/>
+                        <input [type]="'text'" [name]="'numero'"  formControlName="numero" />
                     </p-text-field-wrapper>
                     <p-text-field-wrapper class="input-large" [label]="'Complemento:'" [hideLabel]="false" >
-                        <input [type]="'text'" [name]="'complement'"  [maxLength]="24"  required/>
+                        <input [type]="'text'" [name]="'complemento'"  formControlName="complemento" [maxLength]="24" />
                     </p-text-field-wrapper>
+
                 </div>
             </p-accordion>
             <p-accordion
+                *ngIf="!checked"
                 [heading]="'Trabalhista'"
                 [tag]="'h1'"
                 [size]="'small'"
                 [open]="work"
                 (accordionChange)="onAccordion3Change($event)">
                 <div class="inputs-wrapper">
-                    <p-text-field-wrapper class="input-medium " [label]="'Empresa:'" [hideLabel]="false">
-                        <input [type]="'text'" [name]="'complete-name'"  required/>
-                    </p-text-field-wrapper>
-                    <p-text-field-wrapper class="input-large" [label]="'Tipo de Vinculo:'" [hideLabel]="false">
-                        <input [type]="'text'" [name]="'complete-name'"  required/>
+                    <p-text-field-wrapper class="input-medium " [label]="'Fornecedor:'" [hideLabel]="false">
+                        <input [type]="'text'" [name]="'fornecedor'"  required/>
                     </p-text-field-wrapper>
                 </div>
             </p-accordion>
             <p-button-group class="buttons">
                 <p-button [variant]="'secondary'" [icon]="'delete'">Cancelar</p-button>
-                <p-button [variant]="'primary'" [icon]="'add'" [type]="'submit'" [disabled]="true">Cadastrar</p-button>
+                <p-button [variant]="'primary'" [icon]="'add'" [type]="'submit'" [disabled]="!formularioEmpresa.valid">Cadastrar</p-button>
               </p-button-group>
         </form>
     </section>

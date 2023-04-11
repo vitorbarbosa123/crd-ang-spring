@@ -4,6 +4,11 @@ import type { AccordionChangeEvent } from '@porsche-design-system/components-ang
 import { mask, unMask } from 'remask';
 import { CepService } from 'src/app/core/services/cep/cep.service';
 import { IEndereco } from 'src/app/core/interfaces/IEndereco';
+import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { EmpresasService } from 'src/app/core/services/empresas/empresas.service';
+import { IEmpresa } from 'src/app/core/interfaces/IEmpresa';
+import { IFornecedor } from 'src/app/core/interfaces/IFornecedor';
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -20,6 +25,10 @@ export class RegisterComponent implements OnInit {
   isCpf: boolean = false;
   cep: string = '';
   cep$: any;
+  birthdate: any;
+  isChild: boolean = false;
+  blockAge: boolean = false;
+  formularioEmpresa: FormGroup;
 
   endereco: IEndereco = {
     logradouro: '',
@@ -30,11 +39,26 @@ export class RegisterComponent implements OnInit {
   }
 
   constructor(
-    private cepService: CepService
-  ) { }
-
-  ngOnInit(): void {
+    private cepService: CepService,
+    private formBuilder: FormBuilder,
+    private empresasService: EmpresasService
+  ) { 
+    this.formularioEmpresa = this.formBuilder.group({
+      nome: new FormControl(''),
+      cnpj: new FormControl(''),
+      endereco: this.formBuilder.group({
+          logradouro: new FormControl(''),
+          bairro: new FormControl(''),
+          cep: new FormControl(''),
+          cidade: new FormControl(''),
+          uf: new FormControl(''),
+          complemento: new FormControl(''),
+          numero: new FormControl(''),
+      })
+    })
   }
+
+  ngOnInit(): void {}
 
   openSidebar() {
     this.clicked = !this.clicked;
@@ -71,5 +95,34 @@ export class RegisterComponent implements OnInit {
       await this.cep$.subscribe((value: IEndereco) => 
         this.endereco = value
     )}
+  }
+
+  calculateAge() {
+    let today = new Date()
+    let birthdate = new Date(this.birthdate)
+    let year = today.getFullYear() - birthdate.getFullYear()
+    let month = today.getMonth() - birthdate.getMonth()
+
+    if (month < 0 || (month === 0 && today.getDate() < birthdate.getDate())) {
+      year--;
+  }
+  return year;
+  }
+
+  verifyAge() {
+    if(this.calculateAge() >= 18) {
+      this.isChild = false
+    } else {
+      this.isChild = true
+    }
+  }
+
+  cadastraEmpresa() {
+    console.warn(this.formularioEmpresa.value)
+    this.empresasService.cadastraEmpresa(this.formularioEmpresa.value).subscribe(
+      res => {
+        console.log(res)
+      }
+    )
   }
 }
