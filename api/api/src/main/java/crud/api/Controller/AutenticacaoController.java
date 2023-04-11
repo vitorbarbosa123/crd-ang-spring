@@ -18,7 +18,7 @@ import crud.api.infra.Security.TokenService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/login")
+@RequestMapping("login")
 public class AutenticacaoController {
 
     @Autowired

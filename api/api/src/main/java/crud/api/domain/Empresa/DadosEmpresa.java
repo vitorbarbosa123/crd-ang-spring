@@ -12,7 +12,6 @@ public record DadosEmpresa(
     String nome, 
 
     @NotBlank
-    @Pattern(regexp = "\\d{14}")
     String cnpj, 
 
     @NotNull
