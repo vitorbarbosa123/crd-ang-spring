@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginGuard } from './core/guards/login/login.guard';
 import { AutenticateGuard } from './core/guards/autenticate/autenticate.guard';
+import { ListComponent } from './pages/list/list/list.component';
+import { RegisterComponent } from './pages/register/register/register.component';
 
 const routes: Routes = [
   {
@@ -25,6 +27,14 @@ const routes: Routes = [
     loadChildren: () => import('./pages/home/home.module').then((m) => m.HomeModule),
     canLoad: [AutenticateGuard]
   },
+  {
+    path: 'list',
+    component: ListComponent
+  },
+  {
+    path: 'register',
+    component: RegisterComponent
+  }
 ];
 
 @NgModule({
