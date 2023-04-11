@@ -3,11 +3,11 @@ package crud.api.domain.Empresa;
 public record DadosListagemEmpresa(
     Long id,
     String nome, 
-    String cnpj, 
+    String cgc, 
     String cep) {
 
         public DadosListagemEmpresa(Empresa empresa) {
-            this(empresa.getId(), empresa.getNome(), empresa.getCnpj(), empresa.getEndereco().getCep());
+            this(empresa.getId(), empresa.getNome(), empresa.getCgc(), empresa.getEndereco().getCep());
         }
 
 }

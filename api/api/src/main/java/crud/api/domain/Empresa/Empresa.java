@@ -24,14 +24,14 @@ public class Empresa {
     public Empresa(DadosEmpresa empresa) {
         this.ativo = true;
         this.nome = empresa.nome();
-        this.cnpj = empresa.cnpj();
+        this.cgc = empresa.cgc();
         this.endereco = new Endereco(empresa.endereco());
     }
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String nome;
-    private String cnpj; 
+    private String cgc; 
     
     @Embedded
     private Endereco endereco;

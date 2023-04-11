@@ -1,3 +1,3 @@
 ALTER TABLE empresas
-MODIFY cnpj
+MODIFY cgc
 varchar(18);
