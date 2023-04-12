@@ -6,7 +6,6 @@ import { CepService } from 'src/app/core/services/cep/cep.service';
 import { IEndereco } from 'src/app/core/interfaces/IEndereco';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { EmpresasService } from 'src/app/core/services/empresas/empresas.service';
-import { IEmpresa } from 'src/app/core/interfaces/IEmpresa';
 import { IFornecedor } from 'src/app/core/interfaces/IFornecedor';
 import { FornecedoresService } from 'src/app/core/services/fornecedores/fornecedores.service';
 
@@ -50,7 +49,7 @@ export class RegisterComponent implements OnInit {
   ) { 
     this.formularioEmpresa = this.formBuilder.group({
       nome: new FormControl(''),
-      cgc: new FormControl(''),
+      cgc: new FormControl (''),
       endereco: this.formBuilder.group({
           logradouro: new FormControl(''),
           bairro: new FormControl(''),
@@ -142,6 +141,7 @@ export class RegisterComponent implements OnInit {
   }
 
   cadastraEmpresa() {
+    this.formularioEmpresa.value.cgc = unMask(this.formularioEmpresa.value.cgc)
     this.empresasService.cadastraEmpresa(this.formularioEmpresa.value).subscribe(
       res => {
         console.log(res)
@@ -150,6 +150,7 @@ export class RegisterComponent implements OnInit {
   }
 
   cadastraFornecedor() {
+    this.formularioFornecedor.value.cgc = unMask(this.formularioFornecedor.value.cgc)
     this.fornecedorService.cadastraFornecedor(this.formularioFornecedor.value).subscribe(
       res => {
         console.log(res)
@@ -177,8 +178,5 @@ export class RegisterComponent implements OnInit {
 
   deletarFornecedorSelecionado(id: string) {
     this.fornecedoresSelecionados = this.fornecedoresSelecionados.filter((fornecedor) => fornecedor.id !== id)
-    console.log(this.fornecedoresSelecionados.length)
-
-
   }
 }

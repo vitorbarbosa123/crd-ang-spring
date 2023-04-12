@@ -1,6 +1,6 @@
 export interface IEmpresa {
     nome: string,
-    cnpj: string,
+    cgc: string,
     logradouro: string,
     bairro: string,
     cep: string,

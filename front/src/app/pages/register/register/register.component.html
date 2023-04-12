@@ -83,7 +83,6 @@
                           <option [value]="fornecedor.id">{{ fornecedor.nome }}</option>
                         </select>
                     </p-select-wrapper>
-
                     <div class="selected-wrapper" *ngIf="fornecedoresSelecionados.length == 1">
                         <p-text size="small">Fornecedores selecionados:</p-text>
                         <div *ngFor="let fornecedor of fornecedoresSelecionados" class="fornecedor-box">
