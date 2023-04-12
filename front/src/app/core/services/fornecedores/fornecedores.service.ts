@@ -50,4 +50,36 @@ export class FornecedoresService {
       })
     )
   }
+
+  deleteFornecedor(id: string) {
+    this.token = this.tokenService.returnToken();
+
+    const headers = new HttpHeaders({
+      Authorization: this.token
+    })
+
+    return this.httpClient.delete(`${API}/fornecedor/${id}`,  { headers })
+    .pipe(
+      tap(async (res:any) => {
+        console.log(res)
+        return res;
+      })
+    )
+  }
+
+  updateFornecedor(fornecedor: FormGroup) {
+    this.token = this.tokenService.returnToken();
+
+    const headers = new HttpHeaders({
+      Authorization: this.token,
+    })
+
+    return this.httpClient.put(`${API}/fornecedor/`,  fornecedor ,{ headers })
+    .pipe(
+      tap(async (res:any) => {
+        console.log(res)
+        return res;
+      })
+    )
+  }
 }

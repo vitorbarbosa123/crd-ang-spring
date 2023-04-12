@@ -34,4 +34,52 @@ export class EmpresasService {
       })
     )
   }
+
+  getEmpresas() {
+    this.token = this.tokenService.returnToken();
+
+    const headers = new HttpHeaders({
+      Authorization: this.token
+    })
+
+    return this.httpClient.get(`${API}/empresa`, { headers })
+    .pipe(
+      tap(async (res:any) => {
+        console.log(res)
+        return res;
+      })
+    )
+  }
+
+  deleteEmpresa(id: string) {
+    this.token = this.tokenService.returnToken();
+
+    const headers = new HttpHeaders({
+      Authorization: this.token
+    })
+
+    return this.httpClient.delete(`${API}/empresa/${id}`,  { headers })
+    .pipe(
+      tap(async (res:any) => {
+        console.log(res)
+        return res;
+      })
+    )
+  }
+
+  updateEmpresa(empresa: FormGroup) {
+    this.token = this.tokenService.returnToken();
+
+    const headers = new HttpHeaders({
+      Authorization: this.token,
+    })
+
+    return this.httpClient.put(`${API}/empresa/`,  empresa ,{ headers })
+    .pipe(
+      tap(async (res:any) => {
+        console.log(res)
+        return res;
+      })
+    )
+  }
 }
