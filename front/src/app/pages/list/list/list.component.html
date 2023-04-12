@@ -1,4 +1,4 @@
-<main>
+<main class="screen">
     <app-header (click)="openSidebar()">
     </app-header>
     <app-sidebar [clicked]="clicked">
@@ -8,19 +8,68 @@
         <div class="header">
             <p-text size="x-large" class="title">Listar cadastros</p-text>
         </div>
+        
+        <form (ngSubmit)="getDataSearched()" [formGroup]="formularioPesquisa" method="POST" class="form">
+            <p-accordion
+            [heading]="'Dados'"
+            [tag]="'h2'"
+            [size]="'small'"
+            [open]="isAccordion1Open"
+            (accordionChange)="onAccordion1Change($event)"
+            >
+                <div class="inputs-wrapper">
+                    <p-select-wrapper [label]="'Tipo'" [hideLabel]="false" class="input-medium">
+                        <select formControlName="companyType">
+                        <option [value]="'EMPRESA'">EMPRESA</option>
+                        <option [value]="'FORNECEDOR'">FORNECEDOR</option>
+                        </select>
+                    </p-select-wrapper>
+                    <p-button [variant]="'primary'" [icon]="'search'" [type]="'submit'" class="button-search">Pesquisar</p-button>
+                </div>
+            </p-accordion>
+            <p-accordion
+            *ngIf="getInfos"
+            [heading]="'Filtrar'"
+            [tag]="'h2'"
+            [size]="'small'"
+            [open]="isAccordion2Open"
+            (accordionChange)="onAccordion2Change($event)"
+            >
+                <div class="inputs-wrapper">
+                    <p-select-wrapper [label]="'Selecione um dado:'" [hideLabel]="false" class="input-medium">
+                        <select formControlName="dataType">
+                        <option [value]="'NOME'" >NOME</option>
+                        <option [value]="'CGC'">CNPJ/CPF</option>
+                        </select>
+                    </p-select-wrapper>
+                    <p-text-field-wrapper [label]="'Digite o dado:'" class="input-medium">
+                        <input [type]="'text'"  [name]="'some-name'" formControlName="dataValue"/>
+                    </p-text-field-wrapper>
+                    <p-button [variant]="'primary'" [icon]="'filter'" class="button-search" (click)="filtrarDados()">Filtrar</p-button>
 
-        <div class="search-wrapper">
-            <p-select-wrapper [label]="'Selecione um dado'" [hideLabel]="false" class="search-select">
-                <select [name]="'some-name'">
-                  <option [value]="'a'">CPF</option>
-                  <option [value]="'b'">CNPJ</option>
-                </select>
-            </p-select-wrapper>
-            <p-text-field-wrapper [label]="'Digite o dado:'" class="input-search">
-                <input [type]="'text'"  [name]="'some-name'" [value]="'000.000.000-00'" required />
-            </p-text-field-wrapper>
-            <p-button [variant]="'primary'" [icon]="'search'" class="button-search">Pesquisar</p-button>
+                </div>
+            </p-accordion> 
+        </form>
+               
+        <div *ngIf="getInfos" class="table-wrapper">
+            <p-table caption="Some caption">
+                <p-table-head>
+                  <p-table-head-row>
+                    <p-table-head-cell *ngFor="let item of headTable">{{ item }}</p-table-head-cell>
+                  </p-table-head-row>
+                </p-table-head>
+                <p-table-body>
+                  <p-table-row *ngFor="let cadastro of cadastros" (change)="deletarCadastro(cadastro.id)">
+                    <p-table-cell>{{ cadastro.nome }}</p-table-cell>
+                    <p-table-cell>{{ cadastro.cgc }}</p-table-cell>
+                    <p-table-cell>{{ cadastro.cep }}</p-table-cell>
+                    <p-table-cell>
+                        <p-button-pure icon="edit" style="padding: .5rem"></p-button-pure>
+                        <p-button-pure icon="delete" style="padding: .5rem" (click)="deletarCadastro(cadastro.id)"></p-button-pure>
+                    </p-table-cell>
+                  </p-table-row>
+                </p-table-body>
+              </p-table>
         </div>
-
     </section>
  </main>
