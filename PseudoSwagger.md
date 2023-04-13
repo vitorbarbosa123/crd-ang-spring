@@ -33,6 +33,7 @@ HEADER: TOKEN
 #### Method: **GET**
 URL: http://localhost:8080/empresa/
 HEADER: TOKEN
+
 ALTERNATIVE: http://localhost:8080/empresa/page={id}
 
 #### Method: **DELETE**
@@ -73,6 +74,7 @@ HEADER: TOKEN
 #### Method: **GET**
 URL: http://localhost:8080/fornecedor/
 HEADER: TOKEN
+
 ALTERNATIVE: http://localhost:8080/fornecedor/page={id}
 
 #### Method: **DELETE**
