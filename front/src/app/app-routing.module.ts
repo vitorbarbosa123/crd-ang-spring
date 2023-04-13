@@ -29,11 +29,13 @@ const routes: Routes = [
   },
   {
     path: 'list',
-    component: ListComponent
+    component: ListComponent,
+    canLoad: [AutenticateGuard]
   },
   {
     path: 'register',
-    component: RegisterComponent
+    component: RegisterComponent,
+    canLoad: [AutenticateGuard]
   }
 ];
 
