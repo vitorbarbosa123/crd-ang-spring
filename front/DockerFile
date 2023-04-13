@@ -1,15 +1,16 @@
-FROM node:14.16.0-alpine
+FROM node:18.10.0-alpine as build
 
-WORKDIR /app
+WORKDIR /usr/local/app
 
-COPY package*.json ./
+COPY ./ /usr/local/app
 
 RUN npm install
 
-COPY . .
+RUN npm run build
 
-RUN npm run build --prod
+FROM nginx:latest
 
-EXPOSE 40
+COPY --from=build /usr/local/app/dist/s3dsim-angular /usr/share/nginx/html
+COPY /config/nginx.conf  /etc/nginx/conf.d/default.conf
 
-CMD ["npm", "run", "start"]
+EXPOSE 80
