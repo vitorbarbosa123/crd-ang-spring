@@ -25,10 +25,12 @@ import crud.api.domain.Empresa.DadosEmpresa;
 import crud.api.domain.Empresa.DadosListagemEmpresa;
 import crud.api.domain.Empresa.Empresa;
 import crud.api.domain.Empresa.EmpresaRepository;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("empresa")
+@SecurityRequirement(name = "bearer-key")
 public class EmpresaController {
 
     @Autowired

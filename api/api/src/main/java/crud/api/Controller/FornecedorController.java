@@ -25,10 +25,12 @@ import crud.api.domain.Fornecedor.DadosFornecedor;
 import crud.api.domain.Fornecedor.DadosListagemFornecedor;
 import crud.api.domain.Fornecedor.Fornecedor;
 import crud.api.domain.Fornecedor.FornecedorRepository;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("fornecedor")
+@SecurityRequirement(name = "bearer-key")
 public class FornecedorController {
 
     @Autowired
