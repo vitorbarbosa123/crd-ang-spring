@@ -33,7 +33,7 @@
                         <input [type]="'text'" [name]="'rg'"  formControlName="rg" required/>
                     </p-text-field-wrapper>
                     <p-text-field-wrapper *ngIf="checked && isCpf" class="input-medium "  [label]="'Data de nascimento:'" [hideLabel]="false">
-                        <input [type]="'date'" [name]="'birthdate'"  formControlName="birthdate" [(ngModel)]="birthdate" (change)="verifyAge()" required/>
+                        <input [type]="'date'" [name]="'birthdate'"  formControlName="birthdate" [(ngModel)]="birthdate" required/>
                     </p-text-field-wrapper>
                     
                 </div>

@@ -26,8 +26,6 @@ export class RegisterComponent implements OnInit {
   cep: string = '';
   cep$: any;
   birthdate: any;
-  isChild: boolean = false;
-  blockAge: boolean = false;
   formularioEmpresa: FormGroup;
   formularioFornecedor: FormGroup;
   fornecedores: IFornecedor[] = [];
@@ -120,26 +118,7 @@ export class RegisterComponent implements OnInit {
     )}
   }
 
-  calculateAge() {
-    let today = new Date()
-    let birthdate = new Date(this.birthdate)
-    let year = today.getFullYear() - birthdate.getFullYear()
-    let month = today.getMonth() - birthdate.getMonth()
-
-    if (month < 0 || (month === 0 && today.getDate() < birthdate.getDate())) {
-      year--;
-  }
-  return year;
-  }
-
-  verifyAge() {
-    if(this.calculateAge() >= 18) {
-      this.isChild = false
-    } else {
-      this.isChild = true
-    }
-  }
-
+  
   cadastraEmpresa() {
     this.formularioEmpresa.value.cgc = unMask(this.formularioEmpresa.value.cgc)
     this.empresasService.cadastraEmpresa(this.formularioEmpresa.value).subscribe(
