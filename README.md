@@ -24,6 +24,9 @@ O projeto conta com as seguintes funcionalidades implementadas:
 
 -> Paginação de cadastros
 
+-> Documentação de [rotas](http://localhost:8080/swagger-ui/index.html)
+Nota: necessário iniciar o projeto para conseguir acessar url
+
 ### Requisitos funcionais solicitados:
 
 a. CRUD de todas as entidades (Front-end e Back-end) - **Implementado totalmente back e parcialmente front**
